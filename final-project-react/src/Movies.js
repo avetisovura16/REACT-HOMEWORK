@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Navigate  } from 'react-router-dom';
+import { useNavigate, Navigate } from "react-router-dom";
 
 function Movies() {
   const [movies, setMovies] = useState([]);
 
   const [page, setPage] = useState(1);
-  
-    const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -35,45 +35,49 @@ function Movies() {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-
-if (!user) {
-  return <Navigate to="/" replace />;
-}
-
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
 
   function comeback() {
-  localStorage.removeItem("user");
-  navigate("/login"); 
+    localStorage.removeItem("user");
+    navigate("/login");
   }
 
   return (
     <div>
       <header>
         <h1>HomeCinema</h1>
-<div id="UserData"> 
-        <h1> {user?.name} </h1>
-        <button id="buttonLogOut" onClick={comeback}>Log Out</button>
+        <div id="UserData">
+          <h1> {user?.name} </h1>
+          <button id="buttonLogOut" onClick={comeback}>
+            Log Out
+          </button>
         </div>
       </header>
 
       <main>
         <ul className="movies-container">
           {movies.map((movie) => (
-            <li onClick={() => {navigate(`/details/${movie.id}`);}}  key={movie.id}>
-
-<img
-  src={
-    movie.primaryImage?.url ||
-    "https://placehold.co/300x450?text=No+Image"
-  }
-  alt={movie.titleText?.text || "no i"}
-  width="150"
-  onError={(e) => {
-    e.currentTarget.onerror = null;
-    e.currentTarget.src =
-      "https://placehold.co/300x450?text=No+Image";
-  }}
-/>
+            <li
+              onClick={() => {
+                navigate(`/details/${movie.id}`);
+              }}
+              key={movie.id}
+            >
+              <img
+                src={
+                  movie.primaryImage?.url ||
+                  "https://placehold.co/300x450?text=No+Image"
+                }
+                alt={movie.titleText?.text || "no i"}
+                width="150"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src =
+                    "https://placehold.co/300x450?text=No+Image";
+                }}
+              />
 
               <div className="text">
                 <h1> {movie.titleText?.text} </h1>⭐
@@ -91,10 +95,7 @@ if (!user) {
           <button> {page} </button>
           <button onClick={() => setPage(page + 1)}>next</button>
         </div>
-
       </main>
-
-
     </div>
   );
 }

@@ -13,26 +13,27 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://6aff066e3a0e70bc8d547789.mockapi.io/api/login/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://6aff066e3a0e70bc8d547789.mockapi.io/api/login/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: username,
+            email: userMail,
+            password: password,
+            avatar: "https://picsum.photos",
+          }),
         },
-        body: JSON.stringify({
-          name: username,
-          email: userMail,
-          password: password,
-          avatar: "https://picsum.photos",
-        }),
-      });
+      );
 
       const data = await response.json();
 
-      
-
       if (response.ok) {
         console.log("succsess : ", data);
-        localStorage.setItem("user", JSON.stringify(data))
+        localStorage.setItem("user", JSON.stringify(data));
         navigate("/main");
       } else {
         console.error("error:", data);
@@ -42,8 +43,6 @@ const SignIn = () => {
       console.error("eroor :", error);
     }
   };
-
-  
 
   return (
     <form className="menus" onSubmit={handleSubmit}>
@@ -60,7 +59,7 @@ const SignIn = () => {
         ></input>
       </div>
 
-      <div  className="text">
+      <div className="text">
         <label htmlFor="email">Email</label>
         <input
           value={userMail}
@@ -71,7 +70,7 @@ const SignIn = () => {
         ></input>
       </div>
 
-      <div  className="text">
+      <div className="text">
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -81,12 +80,16 @@ const SignIn = () => {
           placeholder="Enter Your Password"
           required
         ></input>
-        <button id="submitButton" type="submit">Submit</button>
+        <button id="submitButton" type="submit">
+          Submit
+        </button>
       </div>
 
-      <div id="loginText"> 
+      <div id="loginText">
         <p>Already have an Account?</p>
-      <NavLink className="links" to="/login">login</NavLink>
+        <NavLink className="links" to="/login">
+          login
+        </NavLink>
       </div>
     </form>
   );
