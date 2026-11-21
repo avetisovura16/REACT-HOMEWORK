@@ -16,7 +16,7 @@ code {
 }
 
 header {
-  background-color: rgba(24, 24, 27, 0.75);
+  background-color: rgba(24, 24, 27, .text p);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: fixed;
@@ -291,3 +291,7 @@ gap: 15px;
 
 }
 
+.details-card .text p {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}

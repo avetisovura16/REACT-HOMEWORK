@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate  } from 'react-router-dom';
 
 function Movies() {
   const [movies, setMovies] = useState([]);
@@ -37,7 +37,7 @@ function Movies() {
 
 
 if (!user) {
-  navigate("/")
+  return <Navigate to="/" replace />;
 }
 
 
@@ -60,11 +60,20 @@ if (!user) {
         <ul className="movies-container">
           {movies.map((movie) => (
             <li onClick={() => {navigate(`/details/${movie.id}`);}}  key={movie.id}>
-              <img
-                src={movie.primaryImage?.url}
-                alt={movie.titleText?.text}
-                width="150"
-              />
+
+<img
+  src={
+    movie.primaryImage?.url ||
+    "https://placehold.co/300x450?text=No+Image"
+  }
+  alt={movie.titleText?.text || "no i"}
+  width="150"
+  onError={(e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src =
+      "https://placehold.co/300x450?text=No+Image";
+  }}
+/>
 
               <div className="text">
                 <h1> {movie.titleText?.text} </h1>⭐

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, Navigate } from "react-router-dom";
 
 
 const Details = () => {
@@ -33,6 +33,12 @@ const Details = () => {
     fetchMovies();
   }, [id]);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+if (!user) {
+  return <Navigate to="/" replace />;
+}
+
+
   if (!movie) {
     return <h2>Loading...</h2>;
   }
@@ -65,6 +71,7 @@ const Details = () => {
           <p>Year: {movie.releaseYear?.year}</p>
           <p>Genres: {movie.genres?.genres?.map((g) => g.text).join(", ")}</p>
           <p>{movie.plot?.plotText?.plainText || "no description :( "}</p>
+          
         </div>
       </div>
     </div>
